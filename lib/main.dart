@@ -67,8 +67,13 @@ class _WallpaperScreenState extends State<WallpaperScreen> {
 
     try {
       final Uri uri = Uri.parse('https://api.waifu.pics/sfw/$category');
-      final http.Response resp =
-          await http.get(uri).timeout(const Duration(seconds: 15));
+      final http.Response resp = await http.get(
+        uri,
+        headers: const <String, String>{
+          'Accept': 'application/json',
+          'User-Agent': 'test-opus-4.8',
+        },
+      ).timeout(const Duration(seconds: 15));
 
       if (resp.statusCode != 200) {
         throw Exception('HTTP ${resp.statusCode}');
@@ -222,13 +227,13 @@ class _WallpaperScreenState extends State<WallpaperScreen> {
                     'Нажми на экран — новые обои',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: (shortestSide * 0.035).clamp(12.0, 18.0),
-                      color: textColor.withValues(alpha: 0.85),
-                      fontWeight: FontWeight.w600,
+                      fontSize: (shortestSide * 0.03).clamp(10.0, 14.0),
+                      color: textColor.withValues(alpha: 0.35),
+                      fontWeight: FontWeight.w400,
                       shadows: <Shadow>[
                         Shadow(
-                          blurRadius: 6,
-                          color: outlineColor.withValues(alpha: 0.8),
+                          blurRadius: 4,
+                          color: outlineColor.withValues(alpha: 0.3),
                         ),
                       ],
                     ),
