@@ -9,7 +9,7 @@ Android-приложение на Flutter.
 - Вёрстка адаптивная под любые размеры экрана.
 
 ## Источник обоев
-waifu.pics — `https://api.waifu.pics/sfw/<category>`.
+nekos.best — `https://nekos.best/api/v2/<category>`.
 
 ## Сборка APK через Codemagic
 Настроено в `codemagic.yaml` (workflow `android-build`):

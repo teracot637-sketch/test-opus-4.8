@@ -37,11 +37,10 @@ class WallpaperScreen extends StatefulWidget {
 
 class _WallpaperScreenState extends State<WallpaperScreen> {
   static const List<String> _categories = <String>[
-    'waifu',
     'neko',
-    'shinobu',
-    'megumin',
-    'awoo',
+    'waifu',
+    'kitsune',
+    'husbando',
   ];
 
   String? _imageUrl;
@@ -66,7 +65,7 @@ class _WallpaperScreenState extends State<WallpaperScreen> {
     _categoryIndex++;
 
     try {
-      final Uri uri = Uri.parse('https://api.waifu.pics/sfw/$category');
+      final Uri uri = Uri.parse('https://nekos.best/api/v2/$category');
       final http.Response resp = await http.get(
         uri,
         headers: const <String, String>{
@@ -81,7 +80,10 @@ class _WallpaperScreenState extends State<WallpaperScreen> {
 
       final Map<String, dynamic> data =
           jsonDecode(resp.body) as Map<String, dynamic>;
-      final String? url = data['url'] as String?;
+      final List<dynamic>? results = data['results'] as List<dynamic>?;
+      final String? url = (results != null && results.isNotEmpty)
+          ? (results.first as Map<String, dynamic>)['url'] as String?
+          : null;
 
       if (url == null || url.isEmpty) {
         throw Exception('пустой ответ');
