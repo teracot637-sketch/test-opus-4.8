@@ -1,0 +1,28 @@
+workflows:
+  android-build:
+    name: test-opus-4.8 Android APK
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    environment:
+      flutter: stable
+      java: 21
+    scripts:
+      - name: Flutter version
+        script: flutter --version
+      - name: Get packages
+        script: flutter pub get
+      - name: Analyze
+        script: flutter analyze
+      - name: Run tests
+        script: flutter test
+      - name: Build release APK
+        script: flutter build apk --release
+    artifacts:
+      - build/app/outputs/flutter-apk/*.apk
+    publishing:
+      email:
+        recipients:
+          - teracot637@gmail.com
+        notify:
+          success: true
+          failure: true
